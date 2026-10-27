@@ -1,1 +1,14 @@
-package com.chubb.claims.reporting;import org.springframework.data.jpa.repository.JpaRepository;import org.springframework.data.jpa.repository.Query;import java.math.BigDecimal;public interface ClaimProjectionRepository extends JpaRepository<ClaimProjection,String>{@Query("select count(c) from ClaimProjection c where c.status not in ('SETTLED','REJECTED')") long countOutstanding();@Query("select coalesce(sum(c.estimatedLiability),0) from ClaimProjection c where c.status not in ('SETTLED','REJECTED')") BigDecimal outstandingExposure();}
+package com.chubb.claims.reporting;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.math.BigDecimal;
+
+public interface ClaimProjectionRepository extends JpaRepository<ClaimProjection, String> {
+    @Query("select count(c) from ClaimProjection c where c.status not in ('SETTLED','REJECTED')")
+    long countOutstanding();
+
+    @Query("select coalesce(sum(c.estimatedLiability),0) from ClaimProjection c where c.status not in ('SETTLED','REJECTED')")
+    BigDecimal outstandingExposure();
+}
