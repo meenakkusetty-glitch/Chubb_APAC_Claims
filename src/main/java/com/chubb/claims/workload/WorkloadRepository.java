@@ -1,0 +1,1 @@
+package com.chubb.claims.workload; import org.springframework.data.jpa.repository.JpaRepository;import java.util.List;public interface WorkloadRepository extends JpaRepository<WorkloadRecord,String>{List<WorkloadRecord> findByStaffName(String staffName);}

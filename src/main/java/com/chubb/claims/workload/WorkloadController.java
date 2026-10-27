@@ -1,0 +1,3 @@
+package com.chubb.claims.workload;import org.springframework.web.bind.annotation.*;import java.util.*;import java.util.stream.Collectors;
+@RestController @RequestMapping("/api/staff") public class WorkloadController {private final WorkloadRepository repo;public WorkloadController(WorkloadRepository r){repo=r;}public record Summary(String staffName,long totalAssigned,Map<String,Long> countsByStatus){}
+ @GetMapping("/workload") public Summary workload(@RequestParam String staffName){var records=repo.findByStaffName(staffName);var counts=records.stream().collect(Collectors.groupingBy(WorkloadRecord::getStatus,Collectors.counting()));return new Summary(staffName,records.size(),counts);}}

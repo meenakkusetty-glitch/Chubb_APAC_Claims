@@ -1,0 +1,2 @@
+package com.chubb.claims.reporting;import org.springframework.web.bind.annotation.*;import java.math.BigDecimal;import java.util.Map;
+@RestController @RequestMapping("/api/manager")public class ReportingController{private final ClaimProjectionRepository repo;public ReportingController(ClaimProjectionRepository r){repo=r;}@GetMapping("/summary")public Map<String,Object> summary(){return Map.of("outstandingClaims",repo.countOutstanding(),"estimatedLiabilityExposure",repo.outstandingExposure(),"consistency","eventually-consistent");}}
